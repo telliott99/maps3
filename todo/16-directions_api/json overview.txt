@@ -1,0 +1,66 @@
+{
+  "geocoded_waypoints" : [
+  {
+  ..
+  "routes" : [
+    {
+        "bounds"
+        "copyrights"
+        "legs" : [
+          {
+            "distance"
+            "duration"
+            "end_address"
+            "start_address"
+            "steps" : [
+              {
+                 "distance"
+                 "duration"
+                 "end_location" : {
+                    "lat" : 37.7225733,
+                    "lng" : -122.4410469
+                 },
+                 ["maneuver"]
+                 "html_instructions"
+                 "polyline" : {
+                    "points" : "ag~nEt_bqUaD@G? ... "
+                 "start_location" : {
+                  "lat" : 34.0748887,
+                  "lng" : -118.3079479
+                 },
+               }
+                 "travel_mode"
+              }, 
+              ....
+            ]
+            "traffic_speed_entry"
+            "via_waypoint"
+         }
+       ] # legs
+       "overview_polyline": 
+         {
+             "points" : " .. "
+         },
+       "summary" : "I-5 N",
+       "warnings" : [],
+       "waypoint_order" : []
+      }
+
+   ],  # routes
+   "status" : "OK"
+}
+
+ 
+top-level keys are
+    'geocoded_waypoints', 'routes', 'status'
+
+there is one route only
+keys for a route:
+    'bounds', 'copyrights', 'legs', 
+    'overview_polyline', 'summary', 
+    'warnings', 'waypoint_order'
+
+'legs' has the individual legs
+ 
+
+      

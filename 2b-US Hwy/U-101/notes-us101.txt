@@ -1,0 +1,27 @@
+scrape.py grabs the data for a US Highway in multiple states
+and saves it to a new shapefile
+
+it also makes a plot
+for US Hwy 101 there are a couple gaps
+
+collect_highway.py is similar to extract.py but works on US highways
+
+endpoints.py works on the resulting U-101.txt, giving U-101-ends.txt
+
+and then trace-route3.py works on that, gaps caused trouble
+
+I found it easier to not save the intermediate runs but rather paste good sections together by hand.
+
+It's also helpful to go over the route in reverse.
+reverse.py reverses to standard orientation, starting in Los Angeles.
+
+one gap looks like
+
+north of Crescent City CA to the border
+41.866,-124.228
+
+and another in Mendocino Co.
+39.437,-123.360
+
+looking at my segments, 
+those were problem spots where the data is certainly missing

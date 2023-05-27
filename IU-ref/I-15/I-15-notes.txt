@@ -1,0 +1,68 @@
+I-15
+San Diego, CA
+32.7426,-117.1120
+
+63
+32.7721,-117.1125
+32.8522,-117.1153
+358
+..
+12r
+33.4326,-117.1431
+34.0335,-117.55
+325
+..
+0
+34.0335,-117.55
+35.6071,-115.3911
+53
+
+which is the wrong choice
+
+The correct choice is
+
+13r
+33.4326,-117.1437
+34.0335,-117.5504
+315
+..
+18r
+33.4326,-117.1437
+32.7762,-117.1119
+177
+
+63
+32.7721,-117.1125
+32.8522,-117.1153
+358
+
+wrong choice again
+and we're not past I-8 in Mission Valley
+
+try going the other way
+
+Toole Co., WY
+48.860,-111.8825
+
+22
+48.9986,-111.9600
+48.3930,-111.9201
+176
+..
+18r
+33.4326,-117.1437
+32.7762,-117.1119
+177
+
+63
+32.7721,-117.1125
+32.8522,-117.1153
+358
+
+turns around in San Diego
+
+but we're right where we need to be
+
+save as the reverse and then
+write something to do it in reverse
+

@@ -1,0 +1,31 @@
+I need LAT/LON for
+
+LA @ U-101 start
+beginning of U-101
+
+SF @ U-101 / I-80 interchange
+37.768818,-122.405168
+
+U-101 route between the two
+
+-----
+
+LA @ I-5 / I-10 interchange
+34.055343,-118.214203
+
+Ontario @ I-10 / I-15 interchange
+34.017624,-117.544899
+
+I-10 route between the two
+
+SLC @ I-15
+40.764128,-111.914227
+
+I-15 route between the two
+
+I-80 route SF-SLC
+
+Do this part by hand.
+
+
+Decided to try a different approach for now.

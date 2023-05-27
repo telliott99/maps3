@@ -1,0 +1,15 @@
+p3 -m pip install -U OSMnx
+
+
+
+>>> import osmnx
+
+
+import osmnx as ox
+ox.config(use_cache=True, log_console=True)
+G = ox.graph_from_place(
+    'United States', 
+    network_type='drive',   
+    custom_filter='["highway"~"motorway"]')
+
+fig, ax = ox.plot_graph(G)

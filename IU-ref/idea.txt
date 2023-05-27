@@ -1,0 +1,39 @@
+a segment is just a series of points
+these points are very finely spaced
+the first two points in segment 0 of I-10.txt
+
+-117.0652,34.0039
+-117.0650,34.0036
+
+it seems that we should be able to detect 
+overlaps between segments say
+
+p <----------------------> q
+              s <----------------------->t
+
+b/c point s = x,y should then be in the bbox for pq
+xmin < s.x < xmax
+ymin < s.y < ymax
+
+in fact, for simple routes
+p.x < s.x < q.x
+p.y < x.y < q.y
+or vice-versa
+
+so then the idea would be to write code to find these overlapping segments, and then merge them.
+
+Take the segment of I-10 starting at CA-AZ border
+
+9
+33.5665,-113.3351
+33.6048,-114.5307
+271
+
+The reverse of this is on our route.  The question is whether any other segment overlaps significantly.  (Except for 8, which is essentially identical.
+
+(It seems unlikely, since otherwise my joining endpoints method would probably not work with only 300 segments).
+
+And indeed, there is none.
+
+So maybe this approach is not really applicable.
+

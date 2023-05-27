@@ -1,0 +1,59 @@
+My request for directions from LA to SF recovered a large number of
+
+"polyline": {"points" : "...."
+
+for example:
+
+
+"ag~nEt_bqUaD@G?G?O?w@?I?M?KBE?M?Y@M?U?G?mA?c@?w@?iE?Q?i@?gB@eA?Q?mI?O?I?eD?{B?s@?SB"
+
+"{|_oEb`bqUAq@?eD?QAK?K?_@?c@?[?G?wAA_A?U?m@?_BA}@?]?i@?aB?w@?UAU?a@?U?w@?M?g@?U?w@?OAgA?U?W?O?u@As@"
+
+"i}_oE|p`qUcA?I?y@?eA?K?C?S?O?A?A?_@?e@?c@@c@?"
+
+"}i`oE~p`qU?P?LAJ?H?BAFANCPCVEPEXA@IZCHGTGNCBMXS^ABKn@u@hAOVmAjBQTILg@l@g@n@i@f@k@j@k@d@e@^m@b@_@V_@VC@ABSPQHUL{Av@iExB_@R}@d@[NCBq@\\k@XUN[P]To@d@URc@`@g@h@WVe@l@QTOVMR_@l@i@`AGJAB[l@q@lA_AdB_@r@}@`Bc@v@_A|As@hAKNMPg@n@c@h@QPEF_@`@_@^KHYXYTq@j@YPaAt@eAj@IFq@\\kB|@oHrDwAr@a@Pe@Re@Vs@\\s@b@[R_@X[VSRSR[Zc@h@UXQTU^i@~@i@hA_@~@Y`Ak@|BG\\Mv@E`@E\\Gx@A@?RCXC|@A^?h@?^?TA^Av@?F?Z?~@Cn@?@A`@Cb@G|@ALCRE\\G\\CRABEVEPAHK`@K`@Oj@i@xAQ^Wj@Wh@]l@u@vAu@vAOZEFU`@]p@Uf@s@vAqDnHu@zAkAzBm@lAQXkA`Cg@|@[n@[j@KL[f@W\\EFY^[^c@b@GFCD]XMJ_@\\SP]XKF]Tg@TMHMDMFUHMBIBE@k@NC@[FSFYFIB_@H]HgBb@yD|@m@T?@oDr@iB^sATw@NQBKBiANaB^gAVc@Pa@Nw@Xk@VaAb@]Na@ToAt@qBlAqAfA_Av@kAjAgBlBYXCFEDEFCB?@KLGFKJq@x@a@h@i@n@QXSVSVcAlAY^Y\\[^UXWZc@f@g@f@ONg@b@KHMJk@^A@}@j@eB`AWL[RYRWPQNQLa@\\ONQPi@h@iBjBEFMJWVMNYVUV_@^uAvAo@p@aAdAw@v@qBtBgBjBc@`@wAzAm@n@a@h@]d@]h@W`@Yh@OZQ\\Q^Sj@Yz@K\\U~@I\\CLIb@Mp@EXKn@Kx@I`@G^CVMz@e@|CO|@Kb@CLEPKd@c@fBADGVADETCFETCF?@ERADGVADQt@ADEVCDG\\GTAB?BGTCDGVADENCDAFIRAFIRCFGRCFIPCFIRCFMVOVOXOXQXSZw@jA[f@_D~Em@~@k@z@]j@_@j@MTQVMXEHe@r@OVQVEFKN_@j@QVOTQXUZQTOTSTONIHOPSPQNONYRYTEBOJSL[RYNC@WLGDGDUJA@UJ[JiA`@q@V[JMDSHQFYHWFiA`@sBr@m@Tk@RoAb@[LE@e@T[Nc@VULIFWPa@XKJGDq@l@g@j@c@f@a@h@KNa@h@[d@_@l@GHS^QXa@n@m@~@cAbBEF[d@c@r@W^[f@[b@QREDST?@]\\WX"
+
+# ---------------
+
+These are encoded (lat,long)
+
+Do deal with this
+
+pip3 install polyline
+
+Then
+
+import polyline
+polyline.decode(s, geojson=True)
+
+gives (lon,lat)
+
+the first one gives
+
+[(-118.30795, 34.07489), 
+..
+ (-118.30802, 34.0835)]
+
+
+So what we want is to construct MultiLineString
+
+"type":"FeatureCollection",
+"features":[  
+   {  
+      "type":"Feature",
+      "properties":{  
+         "name":"2131 7th Ave, Seattle, WA 98121 to 900 Poplar Pl S, Seattle, WA 98144"
+      },
+      "geometry":{  
+         "type":"MultiLineString",
+         "coordinates":[  
+            [  
+               [-122.3399,47.6165],
+               [-122.34006,47.61659],
+               // ... more coordinates here
+            ]
+         ]
+      }
+   }
+]
+}

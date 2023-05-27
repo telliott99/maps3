@@ -1,0 +1,47 @@
+I-5
+Sam Ysidro
+32.552,-117.048
+
+4r
+32.5424,-117.0297
+33.3965,-117.5937
+326
+..
+0r
+34.8032,-118.8771
+35.79,-119.7824
+317
+
+3r
+35.7899,-119.7828
+35.0193,-118.9582
+133
+
+which is the wrong choice
+which you can tell from the orientation
+
+monitoring orientation breaks
+other cases
+I don't understand why
+
+The correct choice is
+
+50r
+36.0746,-120.0982
+35.79,-119.7824
+132
+..
+52
+48.2976,-122.304
+48.6451,-122.3648
+350
+..
+32r
+48.6451,-122.3648
+49.0021,-122.757
+312
+
+Blaine, WA
+49.001,-122.755
+
+looks good!

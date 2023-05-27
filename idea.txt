@@ -1,0 +1,4 @@
+New idea is to put the route approach aside.
+
+Construct a bounding box for two cities on a highway.
+Grab only those points from the shapefile that are inside.

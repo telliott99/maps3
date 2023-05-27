@@ -1,0 +1,24 @@
+I've come to the conclusion that getting a "route", an ordered sequence of whatever geometry is in an interstate shapefile is both
+
+- not possible for US Highways without a lot of work
+- not really necessary
+
+as a first example, we filter the I-5 data using the latitudes
+of Los Angeles and Sacramento
+as I-5 in north-south, it works great
+
+in passing, I figured out what seems to be the GeoPandas way
+to filter for more complicated selectors
+turn the selector into a df and concat it to the original
+
+-----
+
+now, where can this general approach give trouble?
+only on a meandering road that meanders near the endpoints!
+I can deal with that situation as it comes.
+
+even SE-NW or SW-NE seems like it should work
+
+the next step is to factor the example into re-usable code.
+
+the nice thing is that the results can be saved as shapefiles easily.

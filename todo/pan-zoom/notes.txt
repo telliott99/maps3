@@ -1,0 +1,17 @@
+See zoom.py.
+
+Panning is easy.
+
+The solution given for zooming doesn't work.
+Have not solved this yet.
+
+Folium does have it:
+https://python-graph-gallery.com/292-choropleth-map-with-folium/
+
+Applescript to zoom Safari
+
+https://apple.stackexchange.com/questions/286306/enable-safari-zoom-by-script
+
+but this wouldn't work because CMD + is disabled.
+You'd have to figure out how to control the zoom button on the page, somehow with > 100,000 lines of javascript
+
