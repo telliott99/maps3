@@ -1,6 +1,6 @@
 #### Maps in Python
 
-My wife and I have done a lot of traveling, and I've made maps for most of the trips.  
+My wife Joan and I have done a lot of traveling, and I've made maps for most of the trips.  
 
 Here is a map I just made that's a composite of highways I drove often in the 1980s when my Dad lived in Los Angeles, my girlfriend lived in San Francisco, and I lived in Salt Lake City.  You can probably guess that I used [Google Maps](https://www.google.com/maps/) and the directions function.  It has some nice [features](https://support.google.com/maps/answer/144361?hl=en&co=GENIE.Platform%3DDesktop).
 
@@ -10,7 +10,7 @@ This is great but it does have some limitations.  For example, there is a limit 
 
 Recently, I saw a post (I've lost the link now) of a road trip mapped by someone using Python (a bit like [this](https://cduvallet.github.io/posts/2020/02/road-trip-map) one).  I became intrigued with the idea of making maps using Python.
 
-The github repo for this project is [here](https://github.com/telliott99/maps3).  
+The github repo for this project is [here](https://github.com/telliott99/maps3).  Sources for all the original data files are discussed in the last section.
 
 #### Shapefiles and GeoPandas
 
@@ -51,8 +51,6 @@ Index(['LINEARID', 'FULLNAME', 'RTTYP', 'MTFCC', 'geometry'], dtype='object')
 >>>
 ```
 17495 rows and 5 columns.
-
-Despite the name, ``us_primaryroads`` are almost entirely interstates.
 
 #### Plotting
 
@@ -99,9 +97,27 @@ One peculiar thing that I don't understand:
 
 One must first extract the latter file, and then ``gz_2010_us_040_00_5m`` works.
 
+It occurred to me that the ``tl..`` file might not actually be a zip file, i.e. already unzipped, despite the extension.  But
+
+```
+> unzip -t data/tl_2019_us_primaryroads.zip 
+Archive:  /Users/telliott/Desktop/data/tl_2019_us_primaryroads.zip
+    testing: tl_2019_us_primaryroads.cpg   OK
+    testing: tl_2019_us_primaryroads.dbf   OK
+    testing: tl_2019_us_primaryroads.prj   OK
+    testing: tl_2019_us_primaryroads.shp   OK
+    testing: tl_2019_us_primaryroads.shp.ea.iso.xml   OK
+    testing: tl_2019_us_primaryroads.shp.iso.xml   OK
+    testing: tl_2019_us_primaryroads.shx   OK
+No errors detected in compressed data of data/tl_2019_us_primaryroads.zip.
+> 
+```
+
 #### The "Pandas" way
 
-The main thing that we have to figure out is how to approach the data in GeoPandas.  The Pandas way of doing things is to filter the rows of the dataframe like this:
+The main thing that we have to figure out is how to approach the data in GeoPandas.  The Pandas way of doing things is to filter the rows of the dataframe.
+
+First load the data:
 
 ```
 import geopandas as gpd
@@ -147,7 +163,8 @@ L = list(sub['FULLNAME'])
 L = sorted(list(set(L)))
 for e in L[:5]:
     print(e)
-``
+```
+
 This prints
 
 ```
@@ -170,7 +187,9 @@ There is a space in 'I- 10' and other interstate names.  And sometimes, there is
 >>>
 ```
 
-``startswith`` doesn't work with ``I- 5`` because then we get ``I- 55`` and more.  The above, with a space at the end, doesn't retrieve ``I- 5`` followed by a newline.
+``startswith`` doesn't work for ``'I- 5'`` because then we get ``I- 55`` and more.  
+
+The above, with a space at the end, doesn't retrieve ``I- 5`` followed by a newline.
 
 We need a more complicated selector.  But even this example fails:
 
@@ -193,10 +212,10 @@ path = 'data/tl_2019_us_primaryroads.zip'
 df = gpd.read_file(path)
 
 i5 = df[df['FULLNAME'] == 'I- 5']
-i5plus = df[df['FULLNAME'] == 'I- 5 Local Byp']
-i5plus2 = df[df['FULLNAME'] == 'I- 5 Scn']
+i5byp = df[df['FULLNAME'] == 'I- 5 Local Byp']
+i5scn = df[df['FULLNAME'] == 'I- 5 Scn']
 
-i5 = pd.concat([i5,i5plus,i5plus2])
+i5 = pd.concat([i5,i5byp, i5scn])
 print(i5.shape)
 ```
 which prints:
@@ -326,7 +345,7 @@ for i in range(row_count):
         continue
 ```
 
-It's a bit tricky, though.  If you have filtered a dataframe beforehand, then the indexes fo rows that have been removed are *not present*, so this code will throw an error.
+It's a bit tricky, though.  If you have filtered a dataframe beforehand, the original indexes for rows are retained, which means that those for rows filtered out are *not present*, so this code will throw an error.
 
 For example, with I-5 I got
 
@@ -368,15 +387,7 @@ For example:
 12240 -122.642901  41.184924 -122.257704  42.005453
 12241 -122.643193  41.184927 -122.258098  42.005441
 12242 -122.915158  45.900732 -122.739856  46.387470
-12243 -123.138001  43.749863 -123.005332  44.200079
-12244 -122.317652  47.777618 -122.173910  48.297596
-...           ...        ...         ...        ...
-12352 -120.777338  36.074415 -120.098453  36.854870
-12353 -121.447774  37.591050 -121.277493  38.255100
-12354 -121.333388  37.246130 -121.088656  37.591050
-12355 -123.374170  42.739484 -123.138000  43.753823
-12356 -123.374009  42.739480 -123.138001  43.753697
-
+..
 [117 rows x 4 columns]
 >>> 
 ```
@@ -425,13 +436,15 @@ This is I-5, starting in San Ysidro.  For this representation, I switched to sho
 
 You may notice that this precise lat,lon point (taken from the data), is actually in Mexico!
 
-The example above shows three items which I called "segments".  Each segment comes from a row of the data, and consists of points that are *in order*.  The problem is that the rows themselves are not in order.  That's what my code builds.
+The example above shows three items which I called "segments".  Each segment comes from a row of the data, and consists of points that are *in order*.  Only the first and last points of a segment are given here.
+
+The problem is that the rows themselves are not in order.  That's what my code builds.
 
 Although it might have been the case that segments overlap, in practice they don't.  There are duplicates where one is the route from A to B and there is another which is the route from B to A.
 
 But the general strategy was to start with A-B and find B-C, where the two B's might not be exactly the same point.  
 
-The fourth line in each item is the orientation of the segment.  This was very helpful, because it clearly shows the places where the code gets confused and turns around.  The orientation is calculated from the result of 
+The fourth line in each segment is the orientation of the segment.  This was very helpful, because it clearly shows the places where the code gets confused and turns around.  The orientation is calculated from the result of 
 
 ```
 math.degrees(math.atan((y2-y1)/(x2-x1))
@@ -457,7 +470,7 @@ Ultimately, I wrote code that can generate a route entirely "hands off", say for
 
 However, this could only be extended to US Highway 101 with some difficulty.  The problem is that the highway data is not good enough.
 
-And then finally I realized that this not really unnecessary.
+And then finally I realized that this not really necessary.
 
 We can just filter all the points in a highway for those that are inside a box.  This code uses another feature in GeoPandas called  ``.bounds``:
 
@@ -515,7 +528,7 @@ i5 = pd.concat([i5,i5plus,i5plus2])
 
 which gets *all* of the I-5 data.
 
-At this point, it's clear that in principle, I can do what I set out to do.  We'll stop here with an example that I worked up for a previous write-up.  That's where we're headed, but this thing is long enough already.
+At this point, it's clear that in principle, I can do what I set out to do.  We'll stop here with an example that I worked out for a previous write-up.  That's where we're headed, but this thing is long enough already.
 
 <img src="figs/example5.png" style="width: 400px;" />
 
@@ -535,7 +548,7 @@ Selecting 2020 and then Download > Web Interface leads [here](https://www.census
 
 Selecting layer type:  roads leads [here](https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2020&layergroup=Roads).  Select a state and mash the Download button and you're good.
 
-Instead, select layer type:  State and year 2010 and you can download all the states are each individual state.  
+If instead, you select layer type:  State and year 2010 and you can download all the states are each individual state.  
 
 I did the latter for the Western states and got files like
 
